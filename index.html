@@ -1422,7 +1422,7 @@
 
     .die-body {
       display: grid;
-      grid-template-columns: minmax(170px, 0.8fr) minmax(960px, 3fr) minmax(170px, 0.8fr);
+      grid-template-columns: minmax(130px, 0.45fr) minmax(1100px, 3.8fr) minmax(130px, 0.45fr);
       gap: 14px;
       align-items: stretch;
       min-height: 620px;
@@ -1442,7 +1442,7 @@
       flex-direction: column;
       gap: 18px;
       width: 100%;
-      max-width: 1350px;
+      max-width: 1500px;
       margin: 0 auto;
       padding: 18px 0;
       justify-content: space-between;
@@ -1468,11 +1468,11 @@
 
     .hbm-stack {
       display: flex;
-      gap: 6px;
+      gap: 3px;
       background: linear-gradient(135deg, rgba(20, 20, 30, 0.9), rgba(30, 30, 45, 0.9));
       border: 2px solid rgba(0, 243, 255, 0.7);
       border-radius: 10px;
-      padding: 12px 8px;
+      padding: 9px 5px;
       align-items: stretch;
       box-shadow: 0 0 20px rgba(0, 243, 255, 0.4), inset 0 0 15px rgba(0, 0, 0, 0.6);
       position: relative;
@@ -1485,7 +1485,7 @@
     .mem-controller {
       background: linear-gradient(135deg, rgba(0, 243, 255, 0.85), rgba(57, 222, 141, 0.85));
       border-radius: 7px;
-      padding: 8px 6px;
+      padding: 6px 4px;
       color: #000000;
       font-size: 9px;
       font-weight: 700;
@@ -1499,7 +1499,7 @@
       border: 2px solid rgba(0, 243, 255, 0.9);
       box-shadow: 0 0 15px rgba(0, 243, 255, 0.6), inset 0 0 10px rgba(255, 255, 255, 0.3);
       font-family: 'Orbitron', sans-serif;
-      min-width: 30px;
+      min-width: 22px;
       position: relative;
     }
 
@@ -1562,8 +1562,8 @@
       box-shadow: 0 0 20px rgba(57, 222, 141, 0.6), inset 0 0 15px rgba(255, 255, 255, 0.3);
       font-family: 'Orbitron', sans-serif;
       text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
-      min-width: 110px;
-      width: 110px;
+      min-width: 85px;
+      width: 85px;
     }
 
     .gpc-layer {
@@ -1648,7 +1648,7 @@
       display: grid;
       grid-template-columns: repeat(9, 1fr);
       grid-template-rows: repeat(2, minmax(70px, 1fr));
-      gap: 6px;
+      gap: 5px;
       flex: 1;
     }
 
@@ -1656,22 +1656,23 @@
       background: linear-gradient(135deg, rgba(100, 200, 50, 0.65), rgba(80, 180, 40, 0.65));
       border: 2px solid rgba(120, 220, 60, 0.85);
       border-radius: 6px;
-      padding: 10px 6px;
-      text-align: left;
-      color: #1d2f0f;
+      padding: 15px 14px;
+      text-align: center;
+      color: #132407;
       font-weight: 900;
       font-size: 12px;
       text-transform: uppercase;
-      letter-spacing: 0.45px;
+      letter-spacing: 0.2px;
       box-shadow: 0 0 16px rgba(100, 200, 50, 0.55), inset 0 0 12px rgba(150, 255, 80, 0.25);
-      line-height: 1.35;
+      line-height: 1.25;
       display: flex;
       flex-direction: column;
       justify-content: center;
+      align-items: center;
       transition: all 0.3s ease;
       position: relative;
       overflow: hidden;
-      min-height: 72px;
+      min-height: 84px;
       /* Firefox optimization */
       contain: layout style paint;
       will-change: transform;
@@ -1713,13 +1714,14 @@
     }
 
     .tpc-block span {
-      font-size: 11px;
-      color: #0e1807;
-      margin-top: 4px;
-      opacity: 0.92;
+      display: block;
+      font-size: 12px;
+      color: #0c1606;
+      margin-top: 3px;
+      opacity: 0.95;
       font-weight: 700;
-      letter-spacing: 0.3px;
-      text-shadow: 0 0 4px rgba(255, 255, 255, 0.5);
+      letter-spacing: 0.1px;
+      text-shadow: 0 0 4px rgba(255, 255, 255, 0.55);
     }
 
     .tpc-block.poisoned {
