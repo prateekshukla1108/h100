@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>H100 GPU Architecture - Cyberpunk</title>
   <style>
+    /* Firefox performance optimization: Preload critical styles */
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Orbitron:wght@400;500;700;900&display=swap');
 
     /* ===== CSS VARIABLES ===== */
@@ -32,6 +33,16 @@
       box-sizing: border-box;
     }
 
+    /* Firefox: Optimize rendering of all elements */
+    @supports (-moz-appearance: none) {
+      * {
+        /* Better text rendering */
+        text-rendering: optimizeLegibility;
+        /* Optimize for speed in Firefox */
+        image-rendering: -moz-crisp-edges;
+      }
+    }
+
     /* Cyberpunk scrollbar styling */
     ::-webkit-scrollbar {
       width: 12px;
@@ -55,8 +66,17 @@
       box-shadow: 0 0 20px rgba(0, 243, 255, 0.7);
     }
 
+    /* Firefox scrollbar styling */
+    @supports (-moz-appearance: none) {
+      * {
+        scrollbar-width: thin;
+        scrollbar-color: rgba(0, 200, 255, 0.6) rgba(10, 14, 39, 0.8);
+      }
+    }
+
     html {
       scroll-behavior: smooth;
+      /* Note: transform removed to prevent breaking modal fixed positioning */
     }
 
     body {
@@ -69,6 +89,7 @@
       overflow-x: hidden;
       position: relative;
       min-height: 100vh;
+      /* Firefox optimizations - contain removed to prevent breaking fixed positioning */
     }
 
     /* Enhanced cyberpunk grid background */
@@ -87,6 +108,9 @@
       pointer-events: none;
       z-index: 0;
       transform: translateZ(0);
+      /* Firefox optimization: Promote to own layer */
+      will-change: opacity;
+      contain: strict;
     }
 
     body::after {
@@ -102,6 +126,9 @@
       pointer-events: none;
       z-index: 0;
       transform: translateZ(0);
+      /* Firefox optimization */
+      will-change: opacity;
+      contain: strict;
     }
 
     .container {
@@ -110,6 +137,7 @@
       max-width: 1600px;
       margin: 0 auto;
       padding: 20px;
+      /* Note: contain removed to prevent breaking modal fixed positioning */
     }
 
     /* Header */
@@ -119,11 +147,16 @@
       margin-bottom: 40px;
       background: var(--glass-bg);
       backdrop-filter: blur(12px);
+      -moz-backdrop-filter: blur(12px); /* Firefox specific */
       border: 1px solid var(--glass-border);
       border-radius: 14px;
       box-shadow: var(--shadow);
       position: relative;
       overflow: hidden;
+      /* Firefox optimizations */
+      contain: layout style;
+      will-change: transform;
+      transform: translateZ(0);
     }
 
     .header::before {
@@ -185,6 +218,9 @@
       opacity: 0;
       transition: opacity 0.3s ease;
       animation: gradient-shift 3s linear infinite;
+      /* Firefox optimization: Use GPU for animation */
+      will-change: background-position, opacity;
+      transform: translateZ(0);
     }
 
     .header:hover h1::before {
@@ -198,6 +234,15 @@
 
       100% {
         background-position: 200% 50%;
+      }
+    }
+
+    /* Firefox: Optimize gradient animations */
+    @supports (-moz-appearance: none) {
+      h1::before {
+        animation-timing-function: linear;
+        backface-visibility: hidden;
+        -moz-backface-visibility: hidden;
       }
     }
 
@@ -234,6 +279,10 @@
       box-shadow: var(--shadow);
       font-size: 14px;
       letter-spacing: 0.5px;
+      /* Firefox optimization */
+      contain: layout style paint;
+      will-change: transform, background-color;
+      transform: translateZ(0);
     }
 
     .tab::before {
@@ -299,6 +348,7 @@
     .gpc-cluster {
       background: var(--glass-bg);
       backdrop-filter: blur(10px);
+      -moz-backdrop-filter: blur(10px);
       border: 2px solid var(--bright-green);
       padding: 15px;
       border-radius: 12px;
@@ -307,6 +357,10 @@
       box-shadow: 0 0 15px rgba(57, 222, 141, 0.2);
       position: relative;
       overflow: hidden;
+      /* Firefox optimization */
+      contain: layout style paint;
+      will-change: transform;
+      transform: translateZ(0);
     }
 
     .gpc-cluster::before {
@@ -318,6 +372,9 @@
       height: 100%;
       background: linear-gradient(90deg, transparent, rgba(57, 222, 141, 0.2), transparent);
       animation: scan 3s infinite;
+      /* Firefox optimization */
+      will-change: transform;
+      backface-visibility: hidden;
     }
 
     @keyframes scan {
@@ -327,6 +384,20 @@
 
       100% {
         left: 100%;
+      }
+    }
+
+    /* Firefox: Optimize scan animations */
+    @supports (-moz-appearance: none) {
+      @keyframes scan {
+        0% {
+          transform: translateX(-100%);
+          left: 0;
+        }
+        100% {
+          transform: translateX(200vw);
+          left: 0;
+        }
       }
     }
 
@@ -366,6 +437,10 @@
       font-weight: 600;
       position: relative;
       z-index: 1;
+      /* Firefox optimization */
+      contain: layout style paint;
+      will-change: transform;
+      transform: translateZ(0);
     }
 
     .sm-unit:hover {
@@ -379,12 +454,16 @@
     .sm-architecture {
       background: var(--glass-bg);
       backdrop-filter: blur(12px);
+      -moz-backdrop-filter: blur(12px);
       border: 2px solid var(--glass-border);
       border-radius: 14px;
       padding: 30px;
       box-shadow: var(--shadow);
       max-width: 900px;
       margin: 0 auto;
+      /* Firefox optimization */
+      contain: layout style;
+      transform: translateZ(0);
     }
 
     .arch-component {
@@ -397,6 +476,10 @@
       position: relative;
       overflow: hidden;
       box-shadow: 0 0 15px rgba(0, 243, 255, 0.1);
+      /* Firefox optimization */
+      contain: layout style paint;
+      will-change: transform;
+      transform: translateZ(0);
     }
 
     .arch-component::after {
@@ -409,6 +492,9 @@
       background: linear-gradient(90deg, transparent, rgba(0, 243, 255, 0.15), transparent);
       animation: scan 4s infinite;
       pointer-events: none;
+      /* Firefox optimization */
+      will-change: transform;
+      backface-visibility: hidden;
     }
 
     .arch-component:hover {
@@ -467,6 +553,10 @@
       transition: all 0.3s ease;
       cursor: pointer;
       box-shadow: 0 0 10px rgba(57, 222, 141, 0.2);
+      /* Firefox optimization */
+      contain: layout style paint;
+      will-change: transform;
+      transform: translateZ(0);
     }
 
     .compute-unit:hover {
@@ -510,6 +600,7 @@
     .stat-card {
       background: var(--glass-bg);
       backdrop-filter: blur(12px);
+      -moz-backdrop-filter: blur(12px);
       border: 2px solid var(--glass-border);
       border-radius: 12px;
       padding: 25px 20px;
@@ -518,6 +609,10 @@
       position: relative;
       box-shadow: var(--shadow);
       overflow: hidden;
+      /* Firefox optimization */
+      contain: layout style paint;
+      will-change: transform;
+      transform: translateZ(0);
     }
 
     .stat-card::before {
@@ -575,12 +670,17 @@
     .memory-level {
       background: var(--glass-bg);
       backdrop-filter: blur(10px);
+      -moz-backdrop-filter: blur(10px);
       border: 2px solid var(--glass-border);
       border-radius: 12px;
       padding: 20px;
       transition: all 0.3s ease;
       position: relative;
       box-shadow: var(--shadow);
+      /* Firefox optimization */
+      contain: layout style paint;
+      will-change: transform;
+      transform: translateZ(0);
     }
 
     .memory-level:hover {
@@ -644,6 +744,9 @@
       animation: loading 2s linear infinite;
       width: 70%;
       box-shadow: 0 0 10px rgba(0, 243, 255, 0.6);
+      /* Firefox optimization */
+      will-change: background-position;
+      transform: translateZ(0);
     }
 
     @keyframes loading {
@@ -666,8 +769,12 @@
       font-size: 0.9em;
       background: var(--glass-bg);
       backdrop-filter: blur(12px);
+      -moz-backdrop-filter: blur(12px);
       border-radius: 12px;
       box-shadow: var(--shadow);
+      /* Firefox optimization */
+      contain: layout style;
+      transform: translateZ(0);
     }
 
     .footer p {
@@ -745,8 +852,11 @@
       height: 100%;
       background: rgba(0, 0, 0, 0.8);
       backdrop-filter: blur(8px);
+      -moz-backdrop-filter: blur(8px);
       z-index: 1000;
       animation: fadeIn 0.3s ease;
+      /* Firefox optimization - will-change only, no transform */
+      will-change: opacity;
     }
 
     .info-modal.active {
@@ -898,12 +1008,43 @@
       z-index: 10;
     }
 
-    /* Accessibility */
+    /* Accessibility - Firefox respects this */
     @media (prefers-reduced-motion: reduce) {
-      * {
+      *,
+      *::before,
+      *::after {
         animation-duration: 0.001ms !important;
         animation-iteration-count: 1 !important;
         transition-duration: 0.001ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+
+    /* Firefox-specific performance hints */
+    @supports (-moz-appearance: none) {
+      /* Use Firefox's optimized rendering */
+      * {
+        -moz-osx-font-smoothing: grayscale;
+      }
+
+      /* Optimize backdrop-filter for Firefox - isolated contexts only on safe elements */
+      .header,
+      .gpc-cluster,
+      .sm-architecture,
+      .stat-card,
+      .memory-level,
+      .footer,
+      .info-modal-content {
+        /* Force layer creation for better performance */
+        isolation: isolate;
+      }
+
+      /* Optimize animations */
+      [class*="-block"],
+      [class*="cluster"],
+      [class*="unit"] {
+        backface-visibility: hidden;
+        perspective: 1000px;
       }
     }
 
@@ -919,6 +1060,9 @@
       padding: 0;
       overflow: hidden;
       box-shadow: 0 0 30px rgba(100, 100, 110, 0.4), 0 8px 40px rgba(0, 0, 0, 0.6);
+      /* Firefox optimization */
+      contain: layout style paint;
+      transform: translateZ(0);
     }
     
     .sm-header {
@@ -977,6 +1121,7 @@
       padding: 0;
       background: rgba(0, 50, 80, 0.3);
       border-bottom: 1px solid rgba(0, 243, 255, 0.2);
+      align-items: stretch;
     }
 
     .compute-column {
@@ -998,6 +1143,9 @@
       border-radius: 0;
       font-family: 'Orbitron', sans-serif;
       border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+      /* Firefox optimization */
+      contain: layout style paint;
+      transform: translateZ(0);
     }
 
     .compute-cell:last-child {
@@ -1039,6 +1187,10 @@
       text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
       line-height: 1.3;
       padding: 20px;
+      /* Firefox optimization */
+      contain: layout style paint;
+      will-change: transform;
+      transform: translateZ(0);
     }
 
     .tensor-core-block-wrapper {
@@ -1047,11 +1199,118 @@
 
     .ldst-sfu-grid {
       display: grid;
-      grid-template-columns: repeat(9, 1fr);
+      grid-template-columns: repeat(10, 1fr);
+      grid-template-rows: repeat(2, 1fr);
       gap: 0;
       padding: 0;
       background: rgba(0, 30, 50, 0.3);
       border-bottom: 1px solid rgba(0, 243, 255, 0.2);
+    }
+
+    /* Override for ISM tab - use flex layout with groups */
+    #ism .ldst-sfu-grid {
+      display: flex;
+      flex-direction: row;
+      grid-template-columns: none;
+      grid-template-rows: none;
+      gap: 12px;
+      padding: 16px;
+      background: rgba(0, 30, 50, 0.3);
+      border-bottom: 1px solid rgba(0, 243, 255, 0.2);
+      align-items: stretch;
+    }
+
+    .smsp-footer-grid {
+      display: flex;
+      flex-direction: row;
+      grid-template-columns: none !important;
+      grid-template-rows: none !important;
+    }
+
+    .smsp-footer-grid .ldst-unit,
+    .smsp-footer-grid .sfu-unit {
+      flex: 1;
+      border-bottom: none;
+    }
+
+    .sm-quadrant-footer-grid {
+      display: flex;
+      flex-direction: row;
+      grid-template-columns: none !important;
+      grid-template-rows: none !important;
+    }
+
+    .sm-quadrant-footer-grid .ldst-unit,
+    .sm-quadrant-footer-grid .sfu-unit {
+      flex: 1;
+      border-bottom: none;
+    }
+
+    /* New LD/ST and SFU group containers for ISM tab */
+    .ldst-group {
+      display: flex;
+      flex-direction: row;
+      flex: 1;
+      background: rgba(150, 80, 80, 0.4);
+      border: 2px solid rgba(150, 80, 80, 0.8);
+      border-radius: 8px;
+      padding: 8px;
+      gap: 4px;
+      position: relative;
+    }
+
+    .ldst-group::before {
+      content: 'LD/ST UNITS (8x)';
+      position: absolute;
+      top: -12px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(150, 80, 80, 0.9);
+      color: #ffffff;
+      font-size: 9px;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-family: 'Orbitron', sans-serif;
+      letter-spacing: 0.5px;
+      white-space: nowrap;
+    }
+
+    .sfu-group {
+      display: flex;
+      flex-direction: row;
+      flex: 0.5;
+      background: rgba(200, 80, 80, 0.5);
+      border: 2px solid rgba(200, 80, 80, 0.9);
+      border-radius: 8px;
+      padding: 8px;
+      gap: 4px;
+      position: relative;
+    }
+
+    .sfu-group::before {
+      content: 'SFU UNITS (4x)';
+      position: absolute;
+      top: -12px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(200, 80, 80, 0.9);
+      color: #ffffff;
+      font-size: 9px;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-family: 'Orbitron', sans-serif;
+      letter-spacing: 0.5px;
+      white-space: nowrap;
+    }
+
+    .ldst-group .ldst-unit,
+    .sfu-group .sfu-unit {
+      flex: 1;
+      border: 1px solid rgba(0, 0, 0, 0.3);
+      border-radius: 4px;
+      background: rgba(255, 255, 255, 0.1);
     }
 
     .ldst-unit {
@@ -1098,6 +1357,10 @@
       gap: 18px;
       position: relative;
       overflow: hidden;
+      /* Firefox optimization: Isolate this complex layout */
+      contain: layout style paint;
+      isolation: isolate;
+      transform: translateZ(0);
     }
 
     .full-die-container::before {
@@ -1109,6 +1372,9 @@
         repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(0, 243, 255, 0.03) 2px, rgba(0, 243, 255, 0.03) 4px);
       pointer-events: none;
       z-index: 0;
+      /* Firefox optimization */
+      will-change: opacity;
+      transform: translateZ(0);
     }
 
     .full-die-container > * {
@@ -1156,9 +1422,10 @@
 
     .die-body {
       display: grid;
-      grid-template-columns: auto 1fr auto;
+      grid-template-columns: minmax(170px, 0.8fr) minmax(960px, 3fr) minmax(170px, 0.8fr);
       gap: 14px;
       align-items: stretch;
+      min-height: 620px;
     }
 
     .die-side-column {
@@ -1166,12 +1433,21 @@
       flex-direction: column;
       gap: 12px;
       align-items: stretch;
+      justify-content: space-between;
+      height: 100%;
     }
 
     .die-core {
       display: flex;
       flex-direction: column;
-      gap: 14px;
+      gap: 18px;
+      width: 100%;
+      max-width: 1350px;
+      margin: 0 auto;
+      padding: 18px 0;
+      justify-content: space-between;
+      height: 100%;
+      flex: 1;
     }
 
     .nvlink-switch {
@@ -1199,14 +1475,19 @@
       padding: 12px 8px;
       align-items: stretch;
       box-shadow: 0 0 20px rgba(0, 243, 255, 0.4), inset 0 0 15px rgba(0, 0, 0, 0.6);
+      position: relative;
+      /* Firefox optimization */
+      contain: layout style paint;
+      will-change: transform;
+      transform: translateZ(0);
     }
 
     .mem-controller {
       background: linear-gradient(135deg, rgba(0, 243, 255, 0.85), rgba(57, 222, 141, 0.85));
       border-radius: 7px;
-      padding: 8px 5px;
+      padding: 8px 6px;
       color: #000000;
-      font-size: 10px;
+      font-size: 9px;
       font-weight: 700;
       text-transform: uppercase;
       display: flex;
@@ -1218,6 +1499,51 @@
       border: 2px solid rgba(0, 243, 255, 0.9);
       box-shadow: 0 0 15px rgba(0, 243, 255, 0.6), inset 0 0 10px rgba(255, 255, 255, 0.3);
       font-family: 'Orbitron', sans-serif;
+      min-width: 30px;
+      position: relative;
+    }
+
+    /* Add arrow indicators for bidirectional data flow between HBM3 and Memory Controllers */
+    .hbm-stack .mem-controller::before,
+    .hbm-stack .mem-controller::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 0;
+      border-style: solid;
+      left: -12px;
+    }
+
+    /* Left side HBM stacks - arrows pointing from HBM to MC (rightward) */
+    .hbm-stack .mem-controller::before {
+      top: 30%;
+      border-width: 4px 0 4px 6px;
+      border-color: transparent transparent transparent rgba(0, 243, 255, 0.9);
+    }
+
+    .hbm-stack .mem-controller::after {
+      bottom: 30%;
+      border-width: 4px 6px 4px 0;
+      border-color: transparent rgba(57, 222, 141, 0.9) transparent transparent;
+      left: auto;
+      right: -12px;
+    }
+
+    /* Right side HBM stacks - arrows pointing from MC to HBM (leftward) */
+    .hbm-stack-right .mem-controller::before {
+      top: 30%;
+      border-width: 4px 6px 4px 0;
+      border-color: transparent rgba(0, 243, 255, 0.9) transparent transparent;
+      left: auto;
+      right: -12px;
+    }
+
+    .hbm-stack-right .mem-controller::after {
+      bottom: 30%;
+      border-width: 4px 0 4px 6px;
+      border-color: transparent transparent transparent rgba(57, 222, 141, 0.9);
+      left: -12px;
+      right: auto;
     }
 
     .hbm-label {
@@ -1236,18 +1562,25 @@
       box-shadow: 0 0 20px rgba(57, 222, 141, 0.6), inset 0 0 15px rgba(255, 255, 255, 0.3);
       font-family: 'Orbitron', sans-serif;
       text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
-    }
-
-    .die-core {
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
+      min-width: 110px;
+      width: 110px;
     }
 
     .gpc-layer {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 14px;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
+      flex: 1 1 0;
+      align-content: stretch;
+      min-height: 0;
+    }
+
+    .die-core .gpc-layer:first-of-type {
+      margin-bottom: 6px;
+    }
+
+    .die-core .gpc-layer:last-of-type {
+      margin-top: 6px;
     }
 
     .hbm-stack-right {
@@ -1267,13 +1600,19 @@
       background: linear-gradient(135deg, rgba(30, 30, 35, 0.9), rgba(40, 40, 50, 0.9));
       border: 3px solid rgba(60, 60, 70, 0.8);
       border-radius: 10px;
-      padding: 12px;
+      padding: 16px;
       display: flex;
       flex-direction: column;
-      gap: 8px;
-      box-shadow: 0 0 15px rgba(0, 243, 255, 0.3), inset 0 0 20px rgba(0, 0, 0, 0.5);
+      gap: 12px;
+      box-shadow: 0 0 18px rgba(0, 243, 255, 0.35), inset 0 0 22px rgba(0, 0, 0, 0.5);
       position: relative;
       overflow: hidden;
+      height: 100%;
+      min-height: 0;
+      /* Firefox optimization - already has some, ensure they persist */
+      contain: layout style paint;
+      will-change: transform;
+      transform: translateZ(0);
     }
 
     .gpc-cluster::before {
@@ -1285,6 +1624,9 @@
       height: 100%;
       background: linear-gradient(90deg, transparent, rgba(0, 243, 255, 0.1), transparent);
       animation: scan 4s infinite;
+      /* Firefox optimization */
+      will-change: transform;
+      backface-visibility: hidden;
     }
 
     .gpc-label {
@@ -1304,31 +1646,37 @@
 
     .tpc-grid {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      grid-template-rows: repeat(4, 1fr);
-      gap: 4px;
+      grid-template-columns: repeat(9, 1fr);
+      grid-template-rows: repeat(2, minmax(70px, 1fr));
+      gap: 6px;
+      flex: 1;
     }
 
     .tpc-block {
-      background: linear-gradient(135deg, rgba(100, 200, 50, 0.6), rgba(80, 180, 40, 0.6));
-      border: 2px solid rgba(120, 220, 60, 0.8);
-      border-radius: 4px;
-      padding: 8px 4px;
-      text-align: center;
-      color: #c0ff50;
-      font-weight: 700;
-      font-size: 8px;
+      background: linear-gradient(135deg, rgba(100, 200, 50, 0.65), rgba(80, 180, 40, 0.65));
+      border: 2px solid rgba(120, 220, 60, 0.85);
+      border-radius: 6px;
+      padding: 10px 6px;
+      text-align: left;
+      color: #1d2f0f;
+      font-weight: 900;
+      font-size: 12px;
       text-transform: uppercase;
-      letter-spacing: 0.3px;
-      box-shadow: 0 0 12px rgba(100, 200, 50, 0.5), inset 0 0 10px rgba(150, 255, 80, 0.2);
-      line-height: 1.2;
+      letter-spacing: 0.45px;
+      box-shadow: 0 0 16px rgba(100, 200, 50, 0.55), inset 0 0 12px rgba(150, 255, 80, 0.25);
+      line-height: 1.35;
       display: flex;
       flex-direction: column;
       justify-content: center;
       transition: all 0.3s ease;
       position: relative;
       overflow: hidden;
-      min-height: 35px;
+      min-height: 72px;
+      /* Firefox optimization */
+      contain: layout style paint;
+      will-change: transform;
+      transform: translateZ(0);
+      text-shadow: 0 0 6px rgba(255, 255, 255, 0.4);
     }
 
     .tpc-block::after {
@@ -1338,6 +1686,8 @@
       background: linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.1) 50%, transparent 70%);
       opacity: 0;
       transition: opacity 0.3s;
+      /* Firefox optimization */
+      will-change: transform, opacity;
     }
 
     .tpc-block:hover::after {
@@ -1350,12 +1700,50 @@
       100% { transform: translateX(100%) translateY(100%); }
     }
 
+    /* Firefox: Optimize shine animation */
+    @supports (-moz-appearance: none) {
+      @keyframes shine {
+        0% { 
+          transform: translateX(-100%) translateY(-100%) translateZ(0); 
+        }
+        100% { 
+          transform: translateX(100%) translateY(100%) translateZ(0); 
+        }
+      }
+    }
+
     .tpc-block span {
-      font-size: 7px;
-      color: #90ff40;
-      margin-top: 2px;
-      opacity: 0.95;
-      text-shadow: 0 0 8px rgba(144, 255, 64, 0.6);
+      font-size: 11px;
+      color: #0e1807;
+      margin-top: 4px;
+      opacity: 0.92;
+      font-weight: 700;
+      letter-spacing: 0.3px;
+      text-shadow: 0 0 4px rgba(255, 255, 255, 0.5);
+    }
+
+    .tpc-block.poisoned {
+      background: linear-gradient(135deg, rgba(80, 80, 80, 0.5), rgba(60, 60, 60, 0.5));
+      border: 2px solid rgba(100, 100, 100, 0.6);
+      color: #888888;
+      opacity: 0.5;
+      box-shadow: 0 0 8px rgba(80, 80, 80, 0.3), inset 0 0 10px rgba(100, 100, 100, 0.2);
+    }
+
+    .tpc-block.poisoned span {
+      color: #666666;
+      text-shadow: 0 0 4px rgba(100, 100, 100, 0.4);
+    }
+
+    .tpc-block.poisoned::before {
+      content: '✗';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 16px;
+      color: rgba(255, 0, 0, 0.3);
+      z-index: 1;
     }
 
     .die-l2-cache {
@@ -1374,6 +1762,10 @@
       grid-template-columns: 1fr auto 1fr;
       gap: 36px;
       align-items: center;
+      /* Firefox optimization */
+      contain: layout style paint;
+      will-change: transform;
+      transform: translateZ(0);
     }
 
     .die-l2-cache::before {
@@ -1387,6 +1779,9 @@
         rgba(255, 255, 255, 0.1) 55%, 
         transparent 100%);
       animation: cacheSweep 3s linear infinite;
+      /* Firefox optimization */
+      will-change: transform;
+      backface-visibility: hidden;
     }
 
     .die-l2-cache .l2-half {
@@ -1456,6 +1851,18 @@
       100% { transform: translateX(100%); }
     }
 
+    /* Firefox: Optimize cache sweep animation */
+    @supports (-moz-appearance: none) {
+      @keyframes cacheSweep {
+        0% { 
+          transform: translateX(-100%) translateZ(0); 
+        }
+        100% { 
+          transform: translateX(100%) translateZ(0); 
+        }
+      }
+    }
+
     .die-bottom-bar {
       background: linear-gradient(135deg, rgba(30, 30, 40, 0.9), rgba(40, 40, 55, 0.9));
       border-radius: 10px;
@@ -1504,6 +1911,10 @@
       padding: 0;
       box-shadow: 0 0 30px rgba(100, 100, 110, 0.4), 0 8px 40px rgba(0, 0, 0, 0.6);
       overflow: hidden;
+      /* Firefox optimization */
+      contain: layout style paint;
+      isolation: isolate;
+      transform: translateZ(0);
     }
 
     .smsp-l1-cache {
@@ -1721,7 +2132,7 @@
         <div class="sm-block sm-block-dispatch clickable-unit" data-unit="dispatch-unit">Dispatch Unit (32 thread/clk)</div>
 
         <!-- Register File -->
-        <div class="sm-block sm-block-register clickable-unit" data-unit="register-file">Register File (16,384 × 32-bit)</div>
+        <div class="sm-block sm-block-register clickable-unit" data-unit="register-file">Register File (65,536 × 32-bit)</div>
 
         <!-- Compute Units Grid with Tensor Core -->
         <div class="compute-units-grid">
@@ -1813,15 +2224,24 @@
 
         <!-- LD/ST Units and SFU -->
         <div class="ldst-sfu-grid">
-          <div class="ldst-unit clickable-unit" data-unit="ldst">LD/<br>ST</div>
-          <div class="ldst-unit clickable-unit" data-unit="ldst">LD/<br>ST</div>
-          <div class="ldst-unit clickable-unit" data-unit="ldst">LD/<br>ST</div>
-          <div class="ldst-unit clickable-unit" data-unit="ldst">LD/<br>ST</div>
-          <div class="ldst-unit clickable-unit" data-unit="ldst">LD/<br>ST</div>
-          <div class="ldst-unit clickable-unit" data-unit="ldst">LD/<br>ST</div>
-          <div class="ldst-unit clickable-unit" data-unit="ldst">LD/<br>ST</div>
-          <div class="ldst-unit clickable-unit" data-unit="ldst">LD/<br>ST</div>
-          <div class="sfu-unit clickable-unit" data-unit="sfu">SFU</div>
+          <!-- LD/ST Group: Single larger conceptual block containing 8 units -->
+          <div class="ldst-group">
+            <div class="ldst-unit clickable-unit" data-unit="ldst">LD/ST</div>
+            <div class="ldst-unit clickable-unit" data-unit="ldst">LD/ST</div>
+            <div class="ldst-unit clickable-unit" data-unit="ldst">LD/ST</div>
+            <div class="ldst-unit clickable-unit" data-unit="ldst">LD/ST</div>
+            <div class="ldst-unit clickable-unit" data-unit="ldst">LD/ST</div>
+            <div class="ldst-unit clickable-unit" data-unit="ldst">LD/ST</div>
+            <div class="ldst-unit clickable-unit" data-unit="ldst">LD/ST</div>
+            <div class="ldst-unit clickable-unit" data-unit="ldst">LD/ST</div>
+          </div>
+          <!-- SFU Group: Single larger conceptual block containing 4 units -->
+          <div class="sfu-group">
+            <div class="sfu-unit clickable-unit" data-unit="sfu">SFU</div>
+            <div class="sfu-unit clickable-unit" data-unit="sfu">SFU</div>
+            <div class="sfu-unit clickable-unit" data-unit="sfu">SFU</div>
+            <div class="sfu-unit clickable-unit" data-unit="sfu">SFU</div>
+          </div>
         </div>
       </div>
     </div>
@@ -1843,35 +2263,22 @@
           <div class="die-side-column">
             <div class="nvlink-switch clickable-unit" data-unit="nvlink-switch">NVLink Switch Fabric</div>
             <div class="hbm-stack">
-              <div class="mem-controller clickable-unit" data-unit="memory-controller">Memory Controller</div>
               <div class="hbm-label clickable-unit" data-unit="hbm3">HBM3</div>
               <div class="mem-controller clickable-unit" data-unit="memory-controller">Memory Controller</div>
             </div>
             <div class="hbm-stack">
-              <div class="mem-controller clickable-unit" data-unit="memory-controller">Memory Controller</div>
               <div class="hbm-label clickable-unit" data-unit="hbm3">HBM3</div>
               <div class="mem-controller clickable-unit" data-unit="memory-controller">Memory Controller</div>
             </div>
             <div class="hbm-stack">
-              <div class="mem-controller clickable-unit" data-unit="memory-controller">Memory Controller</div>
               <div class="hbm-label clickable-unit" data-unit="hbm3">HBM3</div>
               <div class="mem-controller clickable-unit" data-unit="memory-controller">Memory Controller</div>
             </div>
-            <div class="hbm-stack">
-              <div class="mem-controller clickable-unit" data-unit="memory-controller">Memory Controller</div>
-              <div class="hbm-label clickable-unit" data-unit="hbm3">HBM3</div>
-              <div class="mem-controller clickable-unit" data-unit="memory-controller">Memory Controller</div>
             </div>
-            <div class="hbm-stack">
-              <div class="mem-controller clickable-unit" data-unit="memory-controller">Memory Controller</div>
-              <div class="hbm-label clickable-unit" data-unit="hbm3">HBM3</div>
-              <div class="mem-controller clickable-unit" data-unit="memory-controller">Memory Controller</div>
-            </div>
-          </div>
 
           <!-- Core Complex -->
           <div class="die-core">
-            <!-- Top Row: GPC 0 and GPC 1 -->
+            <!-- Top Row: GPC 0, GPC 1, GPC 2, and GPC 3 -->
             <div class="gpc-layer">
               <div class="gpc-cluster clickable-unit" data-unit="gpc">
                 <div class="gpc-label">GPC 0</div>
@@ -1884,7 +2291,7 @@
                   <div class="tpc-block clickable-unit" data-unit="tpc">SM<span>5</span></div>
                   <div class="tpc-block clickable-unit" data-unit="tpc">SM<span>6</span></div>
                   <div class="tpc-block clickable-unit" data-unit="tpc">SM<span>7</span></div>
-                  <div class="tpc-block clickable-unit" data-unit="tpc">SM<span>8</span></div>
+                  <div class="tpc-block clickable-unit poisoned" data-unit="tpc">SM<span>8</span></div>
                   <div class="tpc-block clickable-unit" data-unit="tpc">SM<span>9</span></div>
                   <div class="tpc-block clickable-unit" data-unit="tpc">SM<span>10</span></div>
                   <div class="tpc-block clickable-unit" data-unit="tpc">SM<span>11</span></div>
@@ -1892,13 +2299,13 @@
                   <div class="tpc-block clickable-unit" data-unit="tpc">SM<span>13</span></div>
                   <div class="tpc-block clickable-unit" data-unit="tpc">SM<span>14</span></div>
                   <div class="tpc-block clickable-unit" data-unit="tpc">SM<span>15</span></div>
+                  <div class="tpc-block clickable-unit" data-unit="tpc">SM<span>16</span></div>
+                  <div class="tpc-block clickable-unit poisoned" data-unit="tpc">SM<span>17</span></div>
                 </div>
               </div>
               <div class="gpc-cluster clickable-unit" data-unit="gpc">
                 <div class="gpc-label">GPC 1</div>
                 <div class="tpc-grid">
-                  <div class="tpc-block clickable-unit" data-unit="tpc">SM<span>16</span></div>
-                  <div class="tpc-block clickable-unit" data-unit="tpc">SM<span>17</span></div>
                   <div class="tpc-block clickable-unit" data-unit="tpc">SM<span>18</span></div>
                   <div class="tpc-block clickable-unit" data-unit="tpc">SM<span>19</span></div>
                   <div class="tpc-block clickable-unit" data-unit="tpc">SM<span>20</span></div>
@@ -1907,25 +2314,21 @@
                   <div class="tpc-block clickable-unit" data-unit="tpc">SM<span>23</span></div>
                   <div class="tpc-block clickable-unit" data-unit="tpc">SM<span>24</span></div>
                   <div class="tpc-block clickable-unit" data-unit="tpc">SM<span>25</span></div>
-                  <div class="tpc-block clickable-unit" data-unit="tpc">SM<span>26</span></div>
+                  <div class="tpc-block clickable-unit poisoned" data-unit="tpc">SM<span>26</span></div>
                   <div class="tpc-block clickable-unit" data-unit="tpc">SM<span>27</span></div>
                   <div class="tpc-block clickable-unit" data-unit="tpc">SM<span>28</span></div>
                   <div class="tpc-block clickable-unit" data-unit="tpc">SM<span>29</span></div>
                   <div class="tpc-block clickable-unit" data-unit="tpc">SM<span>30</span></div>
                   <div class="tpc-block clickable-unit" data-unit="tpc">SM<span>31</span></div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Second Row: GPC 2 and GPC 3 -->
-            <div class="gpc-layer">
-              <div class="gpc-cluster clickable-unit" data-unit="gpc">
-                <div class="gpc-label">GPC 2</div>
-                <div class="tpc-grid">
                   <div class="tpc-block clickable-unit" data-unit="tpc">SM<span>32</span></div>
                   <div class="tpc-block clickable-unit" data-unit="tpc">SM<span>33</span></div>
                   <div class="tpc-block clickable-unit" data-unit="tpc">SM<span>34</span></div>
-                  <div class="tpc-block clickable-unit" data-unit="tpc">SM<span>35</span></div>
+                  <div class="tpc-block clickable-unit poisoned" data-unit="tpc">SM<span>35</span></div>
+                </div>
+              </div>
+              <div class="gpc-cluster clickable-unit" data-unit="gpc">
+                <div class="gpc-label">GPC 2</div>
+                <div class="tpc-grid">
                   <div class="tpc-block clickable-unit" data-unit="tpc">SM<span>36</span></div>
                   <div class="tpc-block clickable-unit" data-unit="tpc">SM<span>37</span></div>
                   <div class="tpc-block clickable-unit" data-unit="tpc">SM<span>38</span></div>
@@ -1934,21 +2337,21 @@
                   <div class="tpc-block clickable-unit" data-unit="tpc">SM<span>41</span></div>
                   <div class="tpc-block clickable-unit" data-unit="tpc">SM<span>42</span></div>
                   <div class="tpc-block clickable-unit" data-unit="tpc">SM<span>43</span></div>
-                  <div class="tpc-block clickable-unit" data-unit="tpc">SM<span>44</span></div>
+                  <div class="tpc-block clickable-unit poisoned" data-unit="tpc">SM<span>44</span></div>
                   <div class="tpc-block clickable-unit" data-unit="tpc">SM<span>45</span></div>
                   <div class="tpc-block clickable-unit" data-unit="tpc">SM<span>46</span></div>
                   <div class="tpc-block clickable-unit" data-unit="tpc">SM<span>47</span></div>
-                </div>
-              </div>
-              <div class="gpc-cluster clickable-unit" data-unit="gpc">
-                <div class="gpc-label">GPC 3</div>
-                <div class="tpc-grid">
                   <div class="tpc-block clickable-unit" data-unit="tpc">SM<span>48</span></div>
                   <div class="tpc-block clickable-unit" data-unit="tpc">SM<span>49</span></div>
                   <div class="tpc-block clickable-unit" data-unit="tpc">SM<span>50</span></div>
                   <div class="tpc-block clickable-unit" data-unit="tpc">SM<span>51</span></div>
                   <div class="tpc-block clickable-unit" data-unit="tpc">SM<span>52</span></div>
-                  <div class="tpc-block clickable-unit" data-unit="tpc">SM<span>53</span></div>
+                  <div class="tpc-block clickable-unit poisoned" data-unit="tpc">SM<span>53</span></div>
+                </div>
+              </div>
+              <div class="gpc-cluster clickable-unit" data-unit="gpc">
+                <div class="gpc-label">GPC 3</div>
+                <div class="tpc-grid">
                   <div class="tpc-block clickable-unit" data-unit="tpc">SM<span>54</span></div>
                   <div class="tpc-block clickable-unit" data-unit="tpc">SM<span>55</span></div>
                   <div class="tpc-block clickable-unit" data-unit="tpc">SM<span>56</span></div>
@@ -1957,8 +2360,16 @@
                   <div class="tpc-block clickable-unit" data-unit="tpc">SM<span>59</span></div>
                   <div class="tpc-block clickable-unit" data-unit="tpc">SM<span>60</span></div>
                   <div class="tpc-block clickable-unit" data-unit="tpc">SM<span>61</span></div>
-                  <div class="tpc-block clickable-unit" data-unit="tpc">SM<span>62</span></div>
+                  <div class="tpc-block clickable-unit poisoned" data-unit="tpc">SM<span>62</span></div>
                   <div class="tpc-block clickable-unit" data-unit="tpc">SM<span>63</span></div>
+                  <div class="tpc-block clickable-unit" data-unit="tpc">SM<span>64</span></div>
+                  <div class="tpc-block clickable-unit" data-unit="tpc">SM<span>65</span></div>
+                  <div class="tpc-block clickable-unit" data-unit="tpc">SM<span>66</span></div>
+                  <div class="tpc-block clickable-unit" data-unit="tpc">SM<span>67</span></div>
+                  <div class="tpc-block clickable-unit" data-unit="tpc">SM<span>68</span></div>
+                  <div class="tpc-block clickable-unit" data-unit="tpc">SM<span>69</span></div>
+                  <div class="tpc-block clickable-unit" data-unit="tpc">SM<span>70</span></div>
+                  <div class="tpc-block clickable-unit poisoned" data-unit="tpc">SM<span>71</span></div>
                 </div>
               </div>
             </div>
@@ -1970,19 +2381,11 @@
               <div class="l2-half">L2 Cache</div>
             </div>
 
-            <!-- Third Row: GPC 4 and GPC 5 -->
+            <!-- Bottom Row: GPC 4, GPC 5, GPC 6, and GPC 7 -->
             <div class="gpc-layer">
               <div class="gpc-cluster clickable-unit" data-unit="gpc">
                 <div class="gpc-label">GPC 4</div>
                 <div class="tpc-grid">
-                  <div class="tpc-block clickable-unit" data-unit="tpc">SM<span>64</span></div>
-                  <div class="tpc-block clickable-unit" data-unit="tpc">SM<span>65</span></div>
-                  <div class="tpc-block clickable-unit" data-unit="tpc">SM<span>66</span></div>
-                  <div class="tpc-block clickable-unit" data-unit="tpc">SM<span>67</span></div>
-                  <div class="tpc-block clickable-unit" data-unit="tpc">SM<span>68</span></div>
-                  <div class="tpc-block clickable-unit" data-unit="tpc">SM<span>69</span></div>
-                  <div class="tpc-block clickable-unit" data-unit="tpc">SM<span>70</span></div>
-                  <div class="tpc-block clickable-unit" data-unit="tpc">SM<span>71</span></div>
                   <div class="tpc-block clickable-unit" data-unit="tpc">SM<span>72</span></div>
                   <div class="tpc-block clickable-unit" data-unit="tpc">SM<span>73</span></div>
                   <div class="tpc-block clickable-unit" data-unit="tpc">SM<span>74</span></div>
@@ -1991,12 +2394,7 @@
                   <div class="tpc-block clickable-unit" data-unit="tpc">SM<span>77</span></div>
                   <div class="tpc-block clickable-unit" data-unit="tpc">SM<span>78</span></div>
                   <div class="tpc-block clickable-unit" data-unit="tpc">SM<span>79</span></div>
-                </div>
-              </div>
-              <div class="gpc-cluster clickable-unit" data-unit="gpc">
-                <div class="gpc-label">GPC 5</div>
-                <div class="tpc-grid">
-                  <div class="tpc-block clickable-unit" data-unit="tpc">SM<span>80</span></div>
+                  <div class="tpc-block clickable-unit poisoned" data-unit="tpc">SM<span>80</span></div>
                   <div class="tpc-block clickable-unit" data-unit="tpc">SM<span>81</span></div>
                   <div class="tpc-block clickable-unit" data-unit="tpc">SM<span>82</span></div>
                   <div class="tpc-block clickable-unit" data-unit="tpc">SM<span>83</span></div>
@@ -2005,25 +2403,21 @@
                   <div class="tpc-block clickable-unit" data-unit="tpc">SM<span>86</span></div>
                   <div class="tpc-block clickable-unit" data-unit="tpc">SM<span>87</span></div>
                   <div class="tpc-block clickable-unit" data-unit="tpc">SM<span>88</span></div>
-                  <div class="tpc-block clickable-unit" data-unit="tpc">SM<span>89</span></div>
+                  <div class="tpc-block clickable-unit poisoned" data-unit="tpc">SM<span>89</span></div>
+                </div>
+              </div>
+              <div class="gpc-cluster clickable-unit" data-unit="gpc">
+                <div class="gpc-label">GPC 5</div>
+                <div class="tpc-grid">
                   <div class="tpc-block clickable-unit" data-unit="tpc">SM<span>90</span></div>
                   <div class="tpc-block clickable-unit" data-unit="tpc">SM<span>91</span></div>
                   <div class="tpc-block clickable-unit" data-unit="tpc">SM<span>92</span></div>
                   <div class="tpc-block clickable-unit" data-unit="tpc">SM<span>93</span></div>
                   <div class="tpc-block clickable-unit" data-unit="tpc">SM<span>94</span></div>
                   <div class="tpc-block clickable-unit" data-unit="tpc">SM<span>95</span></div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Fourth Row: GPC 6 and GPC 7 -->
-            <div class="gpc-layer">
-              <div class="gpc-cluster clickable-unit" data-unit="gpc">
-                <div class="gpc-label">GPC 6</div>
-                <div class="tpc-grid">
                   <div class="tpc-block clickable-unit" data-unit="tpc">SM<span>96</span></div>
                   <div class="tpc-block clickable-unit" data-unit="tpc">SM<span>97</span></div>
-                  <div class="tpc-block clickable-unit" data-unit="tpc">SM<span>98</span></div>
+                  <div class="tpc-block clickable-unit poisoned" data-unit="tpc">SM<span>98</span></div>
                   <div class="tpc-block clickable-unit" data-unit="tpc">SM<span>99</span></div>
                   <div class="tpc-block clickable-unit" data-unit="tpc">SM<span>100</span></div>
                   <div class="tpc-block clickable-unit" data-unit="tpc">SM<span>101</span></div>
@@ -2032,16 +2426,16 @@
                   <div class="tpc-block clickable-unit" data-unit="tpc">SM<span>104</span></div>
                   <div class="tpc-block clickable-unit" data-unit="tpc">SM<span>105</span></div>
                   <div class="tpc-block clickable-unit" data-unit="tpc">SM<span>106</span></div>
-                  <div class="tpc-block clickable-unit" data-unit="tpc">SM<span>107</span></div>
+                  <div class="tpc-block clickable-unit poisoned" data-unit="tpc">SM<span>107</span></div>
+                </div>
+              </div>
+              <div class="gpc-cluster clickable-unit" data-unit="gpc">
+                <div class="gpc-label">GPC 6</div>
+                <div class="tpc-grid">
                   <div class="tpc-block clickable-unit" data-unit="tpc">SM<span>108</span></div>
                   <div class="tpc-block clickable-unit" data-unit="tpc">SM<span>109</span></div>
                   <div class="tpc-block clickable-unit" data-unit="tpc">SM<span>110</span></div>
                   <div class="tpc-block clickable-unit" data-unit="tpc">SM<span>111</span></div>
-                </div>
-              </div>
-              <div class="gpc-cluster clickable-unit" data-unit="gpc">
-                <div class="gpc-label">GPC 7</div>
-                <div class="tpc-grid">
                   <div class="tpc-block clickable-unit" data-unit="tpc">SM<span>112</span></div>
                   <div class="tpc-block clickable-unit" data-unit="tpc">SM<span>113</span></div>
                   <div class="tpc-block clickable-unit" data-unit="tpc">SM<span>114</span></div>
@@ -2056,8 +2450,29 @@
                   <div class="tpc-block clickable-unit" data-unit="tpc">SM<span>123</span></div>
                   <div class="tpc-block clickable-unit" data-unit="tpc">SM<span>124</span></div>
                   <div class="tpc-block clickable-unit" data-unit="tpc">SM<span>125</span></div>
+                </div>
+              </div>
+              <div class="gpc-cluster clickable-unit" data-unit="gpc">
+                <div class="gpc-label">GPC 7</div>
+                <div class="tpc-grid">
                   <div class="tpc-block clickable-unit" data-unit="tpc">SM<span>126</span></div>
                   <div class="tpc-block clickable-unit" data-unit="tpc">SM<span>127</span></div>
+                  <div class="tpc-block clickable-unit" data-unit="tpc">SM<span>128</span></div>
+                  <div class="tpc-block clickable-unit" data-unit="tpc">SM<span>129</span></div>
+                  <div class="tpc-block clickable-unit" data-unit="tpc">SM<span>130</span></div>
+                  <div class="tpc-block clickable-unit" data-unit="tpc">SM<span>131</span></div>
+                  <div class="tpc-block clickable-unit" data-unit="tpc">SM<span>132</span></div>
+                  <div class="tpc-block clickable-unit" data-unit="tpc">SM<span>133</span></div>
+                  <div class="tpc-block clickable-unit poisoned" data-unit="tpc">SM<span>134</span></div>
+                  <div class="tpc-block clickable-unit" data-unit="tpc">SM<span>135</span></div>
+                  <div class="tpc-block clickable-unit" data-unit="tpc">SM<span>136</span></div>
+                  <div class="tpc-block clickable-unit" data-unit="tpc">SM<span>137</span></div>
+                  <div class="tpc-block clickable-unit" data-unit="tpc">SM<span>138</span></div>
+                  <div class="tpc-block clickable-unit" data-unit="tpc">SM<span>139</span></div>
+                  <div class="tpc-block clickable-unit" data-unit="tpc">SM<span>140</span></div>
+                  <div class="tpc-block clickable-unit" data-unit="tpc">SM<span>141</span></div>
+                  <div class="tpc-block clickable-unit" data-unit="tpc">SM<span>142</span></div>
+                  <div class="tpc-block clickable-unit poisoned" data-unit="tpc">SM<span>143</span></div>
                 </div>
               </div>
             </div>
@@ -2069,29 +2484,16 @@
             <div class="hbm-stack hbm-stack-right">
               <div class="mem-controller clickable-unit" data-unit="memory-controller">Memory Controller</div>
               <div class="hbm-label clickable-unit" data-unit="hbm3">HBM3</div>
-              <div class="mem-controller clickable-unit" data-unit="memory-controller">Memory Controller</div>
             </div>
             <div class="hbm-stack hbm-stack-right">
               <div class="mem-controller clickable-unit" data-unit="memory-controller">Memory Controller</div>
               <div class="hbm-label clickable-unit" data-unit="hbm3">HBM3</div>
-              <div class="mem-controller clickable-unit" data-unit="memory-controller">Memory Controller</div>
             </div>
             <div class="hbm-stack hbm-stack-right">
               <div class="mem-controller clickable-unit" data-unit="memory-controller">Memory Controller</div>
               <div class="hbm-label clickable-unit" data-unit="hbm3">HBM3</div>
-              <div class="mem-controller clickable-unit" data-unit="memory-controller">Memory Controller</div>
             </div>
-            <div class="hbm-stack hbm-stack-right">
-              <div class="mem-controller clickable-unit" data-unit="memory-controller">Memory Controller</div>
-              <div class="hbm-label clickable-unit" data-unit="hbm3">HBM3</div>
-              <div class="mem-controller clickable-unit" data-unit="memory-controller">Memory Controller</div>
             </div>
-            <div class="hbm-stack hbm-stack-right">
-              <div class="mem-controller clickable-unit" data-unit="memory-controller">Memory Controller</div>
-              <div class="hbm-label clickable-unit" data-unit="hbm3">HBM3</div>
-              <div class="mem-controller clickable-unit" data-unit="memory-controller">Memory Controller</div>
-            </div>
-          </div>
         </div>
 
         <div class="die-bottom-bar">
@@ -2140,7 +2542,7 @@
             <div class="sm-block sm-block-l0 clickable-unit" data-unit="l0-cache">L0 Instruction Cache</div>
             <div class="sm-block sm-block-warp clickable-unit" data-unit="warp-scheduler">Warp Scheduler (32 thread/clk)</div>
             <div class="sm-block sm-block-dispatch clickable-unit" data-unit="dispatch-unit">Dispatch Unit (32 thread/clk)</div>
-            <div class="sm-block sm-block-register clickable-unit" data-unit="register-file">Register File (16,384 × 32-bit)</div>
+            <div class="sm-block sm-block-register clickable-unit" data-unit="register-file">Register File (65,536 × 32-bit)</div>
             <div class="compute-units-grid">
               <div class="compute-column">
                 <div class="compute-cell compute-cell-int32 clickable-unit" data-unit="int32">INT32</div>
@@ -2216,7 +2618,7 @@
               </div>
               <div class="tensor-core-block clickable-unit" data-unit="tensor-core">TENSOR CORE<br>4<sup>th</sup> GENERATION</div>
             </div>
-            <div class="ldst-sfu-grid">
+            <div class="ldst-sfu-grid sm-quadrant-footer-grid">
               <div class="ldst-unit clickable-unit" data-unit="ldst">LD/<br>ST</div>
               <div class="ldst-unit clickable-unit" data-unit="ldst">LD/<br>ST</div>
               <div class="ldst-unit clickable-unit" data-unit="ldst">LD/<br>ST</div>
@@ -2234,7 +2636,7 @@
             <div class="sm-block sm-block-l0 clickable-unit" data-unit="l0-cache">L0 Instruction Cache</div>
             <div class="sm-block sm-block-warp clickable-unit" data-unit="warp-scheduler">Warp Scheduler (32 thread/clk)</div>
             <div class="sm-block sm-block-dispatch clickable-unit" data-unit="dispatch-unit">Dispatch Unit (32 thread/clk)</div>
-            <div class="sm-block sm-block-register clickable-unit" data-unit="register-file">Register File (16,384 × 32-bit)</div>
+            <div class="sm-block sm-block-register clickable-unit" data-unit="register-file">Register File (65,536 × 32-bit)</div>
             <div class="compute-units-grid">
               <div class="compute-column">
                 <div class="compute-cell compute-cell-int32 clickable-unit" data-unit="int32">INT32</div>
@@ -2310,7 +2712,7 @@
               </div>
               <div class="tensor-core-block clickable-unit" data-unit="tensor-core">TENSOR CORE<br>4<sup>th</sup> GENERATION</div>
             </div>
-            <div class="ldst-sfu-grid">
+            <div class="ldst-sfu-grid sm-quadrant-footer-grid">
               <div class="ldst-unit clickable-unit" data-unit="ldst">LD/<br>ST</div>
               <div class="ldst-unit clickable-unit" data-unit="ldst">LD/<br>ST</div>
               <div class="ldst-unit clickable-unit" data-unit="ldst">LD/<br>ST</div>
@@ -2328,7 +2730,7 @@
             <div class="sm-block sm-block-l0 clickable-unit" data-unit="l0-cache">L0 Instruction Cache</div>
             <div class="sm-block sm-block-warp clickable-unit" data-unit="warp-scheduler">Warp Scheduler (32 thread/clk)</div>
             <div class="sm-block sm-block-dispatch clickable-unit" data-unit="dispatch-unit">Dispatch Unit (32 thread/clk)</div>
-            <div class="sm-block sm-block-register clickable-unit" data-unit="register-file">Register File (16,384 × 32-bit)</div>
+            <div class="sm-block sm-block-register clickable-unit" data-unit="register-file">Register File (65,536 × 32-bit)</div>
             <div class="compute-units-grid">
               <div class="compute-column">
                 <div class="compute-cell compute-cell-int32 clickable-unit" data-unit="int32">INT32</div>
@@ -2404,7 +2806,7 @@
               </div>
               <div class="tensor-core-block clickable-unit" data-unit="tensor-core">TENSOR CORE<br>4<sup>th</sup> GENERATION</div>
             </div>
-            <div class="ldst-sfu-grid">
+            <div class="ldst-sfu-grid sm-quadrant-footer-grid">
               <div class="ldst-unit clickable-unit" data-unit="ldst">LD/<br>ST</div>
               <div class="ldst-unit clickable-unit" data-unit="ldst">LD/<br>ST</div>
               <div class="ldst-unit clickable-unit" data-unit="ldst">LD/<br>ST</div>
@@ -2422,7 +2824,7 @@
             <div class="sm-block sm-block-l0 clickable-unit" data-unit="l0-cache">L0 Instruction Cache</div>
             <div class="sm-block sm-block-warp clickable-unit" data-unit="warp-scheduler">Warp Scheduler (32 thread/clk)</div>
             <div class="sm-block sm-block-dispatch clickable-unit" data-unit="dispatch-unit">Dispatch Unit (32 thread/clk)</div>
-            <div class="sm-block sm-block-register clickable-unit" data-unit="register-file">Register File (16,384 × 32-bit)</div>
+            <div class="sm-block sm-block-register clickable-unit" data-unit="register-file">Register File (65,536 × 32-bit)</div>
             <div class="compute-units-grid">
               <div class="compute-column">
                 <div class="compute-cell compute-cell-int32 clickable-unit" data-unit="int32">INT32</div>
@@ -2498,7 +2900,7 @@
               </div>
               <div class="tensor-core-block clickable-unit" data-unit="tensor-core">TENSOR CORE<br>4<sup>th</sup> GENERATION</div>
             </div>
-            <div class="ldst-sfu-grid">
+            <div class="ldst-sfu-grid sm-quadrant-footer-grid">
               <div class="ldst-unit clickable-unit" data-unit="ldst">LD/<br>ST</div>
               <div class="ldst-unit clickable-unit" data-unit="ldst">LD/<br>ST</div>
               <div class="ldst-unit clickable-unit" data-unit="ldst">LD/<br>ST</div>
@@ -2597,7 +2999,7 @@
           <div class="memory-specs">
             <div class="memory-spec">
               <div class="spec-label">Size</div>
-              <div class="spec-value">60 MB</div>
+              <div class="spec-value">50 MB</div>
             </div>
             <div class="memory-spec">
               <div class="spec-label">Bandwidth</div>
@@ -2672,7 +3074,7 @@
 
         <div class="stat-card">
           <div class="stat-label">Tensor Performance</div>
-          <div class="stat-value">1979 TFLOPS</div>
+          <div class="stat-value">3958 TFLOPS</div>
           <div style="color: #00ff41; margin-top: 10px;">FP8 with sparsity</div>
         </div>
 
@@ -2684,7 +3086,7 @@
 
         <div class="stat-card">
           <div class="stat-label">L2 Cache</div>
-          <div class="stat-value">60 MB</div>
+          <div class="stat-value">50 MB</div>
           <div style="color: #00ff41; margin-top: 10px;">Unified cache</div>
         </div>
 
@@ -2882,7 +3284,7 @@
             {
               title: 'Storage Architecture',
               content: [
-                '16,384 × 32-bit registers per SM',
+                '65,536 × 32-bit registers per SM',
                 'Divided among active warps and threads',
                 'Supports register-level parallelism',
                 'Multi-banked for concurrent access'
@@ -2899,7 +3301,7 @@
             }
           ],
           specs: [
-            { label: 'Total Registers', value: '16,384 × 32-bit' },
+            { label: 'Total Registers', value: '65,536 × 32-bit' },
             { label: 'Per Thread', value: '255 max' },
             { label: 'Access Latency', value: '1 cycle' }
           ]
@@ -3577,11 +3979,18 @@
         });
       });
 
-      // Random SM activation animation
+      // Random SM activation animation (Firefox optimized with RAF)
+      let animationFrameId = null;
+      let lastAnimationTime = 0;
+      const ANIMATION_INTERVAL = 2000;
+
       function animateRandomSM() {
         const smUnits = document.querySelectorAll('.sm-unit');
+        if (smUnits.length === 0) return;
+        
         const randomSM = smUnits[Math.floor(Math.random() * smUnits.length)];
 
+        // Use transform for better Firefox performance
         randomSM.style.background = 'rgba(255, 0, 255, 0.8)';
         randomSM.style.boxShadow = '0 0 25px rgba(255, 0, 255, 1)';
 
@@ -3591,8 +4000,27 @@
         }, 300);
       }
 
-      // Run random animations
-      setInterval(animateRandomSM, 2000);
+      // Use requestAnimationFrame for Firefox optimization
+      function scheduleAnimation(timestamp) {
+        if (!lastAnimationTime) lastAnimationTime = timestamp;
+        
+        if (timestamp - lastAnimationTime >= ANIMATION_INTERVAL) {
+          animateRandomSM();
+          lastAnimationTime = timestamp;
+        }
+        
+        animationFrameId = requestAnimationFrame(scheduleAnimation);
+      }
+
+      // Start optimized animation loop
+      animationFrameId = requestAnimationFrame(scheduleAnimation);
+
+      // Cleanup on page unload
+      window.addEventListener('beforeunload', () => {
+        if (animationFrameId) {
+          cancelAnimationFrame(animationFrameId);
+        }
+      });
     }); // End DOMContentLoaded
   </script>
 </body>
