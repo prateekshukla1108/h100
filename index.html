@@ -1555,6 +1555,19 @@
       position: relative;
     }
 
+    .mem-controller-pair {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      min-width: 22px;
+    }
+
+    .mem-controller-split {
+      flex: 1;
+      padding: 4px 3px;
+      font-size: 8px;
+    }
+
     /* Add arrow indicators for bidirectional data flow between HBM3 and Memory Controllers */
     .hbm-stack .mem-controller::before,
     .hbm-stack .mem-controller::after {
@@ -1645,7 +1658,8 @@
       transform: rotate(180deg);
     }
 
-    .hbm-stack-right .mem-controller:first-of-type {
+    .hbm-stack-right > .mem-controller:first-of-type,
+    .hbm-stack-right > .mem-controller-pair:first-of-type {
       order: 2;
     }
 
@@ -2388,15 +2402,24 @@
             <div class="nvlink-switch clickable-unit" data-unit="nvlink-switch">NVLink Switch Fabric</div>
             <div class="hbm-stack">
               <div class="hbm-label clickable-unit" data-unit="hbm3">HBM3</div>
-              <div class="mem-controller clickable-unit" data-unit="memory-controller">Memory Controller</div>
+              <div class="mem-controller-pair">
+                <div class="mem-controller mem-controller-split clickable-unit" data-unit="memory-controller">Memory Controller</div>
+                <div class="mem-controller mem-controller-split clickable-unit" data-unit="memory-controller">Memory Controller</div>
+              </div>
             </div>
             <div class="hbm-stack">
               <div class="hbm-label clickable-unit" data-unit="hbm3">HBM3</div>
-              <div class="mem-controller clickable-unit" data-unit="memory-controller">Memory Controller</div>
+              <div class="mem-controller-pair">
+                <div class="mem-controller mem-controller-split clickable-unit" data-unit="memory-controller">Memory Controller</div>
+                <div class="mem-controller mem-controller-split clickable-unit" data-unit="memory-controller">Memory Controller</div>
+              </div>
             </div>
             <div class="hbm-stack">
               <div class="hbm-label clickable-unit" data-unit="hbm3">HBM3</div>
-              <div class="mem-controller clickable-unit" data-unit="memory-controller">Memory Controller</div>
+              <div class="mem-controller-pair">
+                <div class="mem-controller mem-controller-split clickable-unit" data-unit="memory-controller">Memory Controller</div>
+                <div class="mem-controller mem-controller-split clickable-unit" data-unit="memory-controller">Memory Controller</div>
+              </div>
             </div>
             </div>
 
@@ -2750,15 +2773,24 @@
           <div class="die-side-column">
             <div class="nvlink-switch clickable-unit" data-unit="nvlink-switch">NVLink Switch Fabric</div>
             <div class="hbm-stack hbm-stack-right">
-              <div class="mem-controller clickable-unit" data-unit="memory-controller">Memory Controller</div>
+              <div class="mem-controller-pair">
+                <div class="mem-controller mem-controller-split clickable-unit" data-unit="memory-controller">Memory Controller</div>
+                <div class="mem-controller mem-controller-split clickable-unit" data-unit="memory-controller">Memory Controller</div>
+              </div>
               <div class="hbm-label clickable-unit" data-unit="hbm3">HBM3</div>
             </div>
             <div class="hbm-stack hbm-stack-right">
-              <div class="mem-controller clickable-unit" data-unit="memory-controller">Memory Controller</div>
+              <div class="mem-controller-pair">
+                <div class="mem-controller mem-controller-split clickable-unit" data-unit="memory-controller">Memory Controller</div>
+                <div class="mem-controller mem-controller-split clickable-unit" data-unit="memory-controller">Memory Controller</div>
+              </div>
               <div class="hbm-label clickable-unit" data-unit="hbm3">HBM3</div>
             </div>
             <div class="hbm-stack hbm-stack-right">
-              <div class="mem-controller clickable-unit" data-unit="memory-controller">Memory Controller</div>
+              <div class="mem-controller-pair">
+                <div class="mem-controller mem-controller-split clickable-unit" data-unit="memory-controller">Memory Controller</div>
+                <div class="mem-controller mem-controller-split clickable-unit" data-unit="memory-controller">Memory Controller</div>
+              </div>
               <div class="hbm-label clickable-unit" data-unit="hbm3">HBM3</div>
             </div>
             </div>
